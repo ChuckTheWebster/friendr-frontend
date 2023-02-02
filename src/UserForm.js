@@ -46,26 +46,27 @@ function UserForm({ prompts, submit }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
 
+    submit(formData);
+    setFormData(initialFormState);
 
-    for(let fieldName in formData){
-      console.log("field name=", fieldName, "field value=", formData[fieldName])
-      data.append(fieldName, formData[fieldName])
-    }
-    data.append("file", selectedFile)
+    // for(let fieldName in formData){
+    //   console.log("field name=", fieldName, "field value=", formData[fieldName])
+    //   data.append(fieldName, formData[fieldName])
+    // }
+    // data.append("file", selectedFile)
 
-    // debugger;
     // console.log("FormData = ", data.values())
 
-    try {
-      const response = await axios({
-        method: "post",
-        url: "http://127.0.0.1:5000/auth/register",
-        data: data,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    } catch(error) {
-      console.log(error)
-    }
+    // try {
+    //   const response = await axios({
+    //     method: "post",
+    //     url: "http://127.0.0.1:5001/auth/register",
+    //     data: data,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   });
+    // } catch(error) {
+    //   console.log(error)
+    // }
   }
 
 

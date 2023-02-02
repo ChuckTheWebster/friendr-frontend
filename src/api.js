@@ -40,39 +40,14 @@ class FriendrApi {
 
   // Individual API routes
 
-
-  /** Get all companies */
-
-  // static async getCompanies(term) {
-  //   const res = await this.request("companies", { nameLike: term });
-  //   return res.companies;
-  // }
-
-  /** Get details on a company by handle. */
-
-  // static async getCompany(handle) {
-  //   const res = await this.request(`companies/${handle}`);
-  //   return res.company;
-  // }
-
-  /** Get all jobs */
-
-  // static async getJobs(term) {
-  //   const res = await this.request("jobs/", {
-  //     title: term
-  //   });
-  //   return res.jobs;
-  // }
-
   /** Login user */
-
-  // static async loginUser(data) {
-  //   const res = await this.request("auth/token", data, "post");
-  //   return res.token;
-  // }
+  static async loginUser(data) {
+    const res = await this.request("auth/token", data, "post");
+    console.log(res);
+    return res;
+  }
 
   /** Register user */
-
   static async registerUser(data) {
     console.log("register user data=", data)
     const res = await this.request("auth/register", data, "post");
@@ -81,12 +56,11 @@ class FriendrApi {
     return res.token;
   }
 
-  /** Get logged in user */
-
-  static async getCurrentUser(username) {
-    const res = await this.request(`users/${username}`);
-    return res.user;
-  }
+    /** Get a user by username */
+    static async getUser(username) {
+      const response = await this.request(`users/${username}`);
+      return response.user;
+    }
 
   /** Update user info */
 
