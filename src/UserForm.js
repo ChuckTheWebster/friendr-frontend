@@ -28,23 +28,43 @@ function UserForm({ prompts, submit }) {
 
   /** Update form input. */
   function handleChange(evt) {
+    // let img;
+
+    // if(evt.target.files){
+    //   img = evt.target.files[0]
+    //   console.log("picture was added")
+    // }
+
     const { name, value } = evt.target;
     setFormData((formData) => ({
       ...formData,
       [name]: value,
+      // "image_url": img
     }));
   }
+
+  console.log("image=", formData.image_url)
 
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
+
     console.log("in handleSubmit");
-    submit();
+    console.log("data=", formData)
+
+    submit(formData);
   }
+
+  function renderInputType(name){
+    if(name === "password") return `password`
+    if(name === "image_url") return `file`
+    return `text`
+  }
+
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} encType="multipart/form-data">
         {prompts.map((p, i) => (
           <Form.Group className="mb-3" key={i}>
             <Form.Label htmlFor={p.name}>{p.label}</Form.Label>
@@ -53,7 +73,7 @@ function UserForm({ prompts, submit }) {
               name={p.name}
               onChange={handleChange}
               value={formData[p.name]}
-              type={p.name === "password" ? "password" : "text"}
+              type={renderInputType(p.name)}
             />
           </Form.Group>
         ))}
@@ -64,5 +84,11 @@ function UserForm({ prompts, submit }) {
     </>
   );
 }
+
+              // {p.name === "password" && type="password"}
+
+
+              // type={p.name === "password" ? "password" : "text"}
+
 
 export default UserForm;

@@ -1,6 +1,7 @@
 import React from 'react';
 import UserForm from './UserForm';
 import Card from 'react-bootstrap/Card';
+
 // import "./SignupPage.css"
 
 /** User signup page
@@ -23,15 +24,31 @@ function SignupPage({ signup }) {
     },
     {
       label: 'First Name',
-      name: 'firstName'
+      name: 'first_name'
     },
     {
       label: 'Last Name',
-      name: 'lastName'
+      name: 'last_name'
     },
     {
       label: 'Email',
       name: 'email'
+    },
+    {
+      label: 'Image',
+      name: 'image_url'
+    },
+    {
+      label: 'Location',
+      name: 'location'
+    },
+    {
+      label: 'Bio',
+      name: 'bio'
+    },
+    {
+      label: 'Friend Radius (Miles)',
+      name: 'friend_radius'
     }
   ];
 
@@ -39,7 +56,7 @@ function SignupPage({ signup }) {
     <div>
       <div className="SignupPage mx-auto mt-4 mb-2">
         <h1>Sign Up</h1>
-        <hr/>
+        <hr />
         <UserForm submit={signup} prompts={prompts} />
       </div>
     </div>

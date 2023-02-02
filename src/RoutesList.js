@@ -34,7 +34,7 @@ function RoutesList({ signup, login }) {
         </>
       {/* } */}
 
-      <Route path="*" element={ <Navigate to='/'/> }/>
+      {/* <Route path="*" element={ <Navigate to='/'/> }/> */}
     </Routes>
   )
 }
