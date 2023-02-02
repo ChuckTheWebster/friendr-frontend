@@ -83,6 +83,8 @@ function App() {
   // // /** Register a user using the API and store the returned token */
   async function signup(signupFormData) {
 
+
+
     const tokenFromAPI = await FriendrApi.registerUser(signupFormData);
     console.log("token=", tokenFromAPI)
     // storeToken(tokenFromAPI);

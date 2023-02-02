@@ -36,7 +36,7 @@ function SignupPage({ signup }) {
     },
     {
       label: 'Image',
-      name: 'image_url'
+      name: 'file'
     },
     {
       label: 'Location',

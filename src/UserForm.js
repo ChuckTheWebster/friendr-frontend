@@ -28,18 +28,21 @@ function UserForm({ prompts, submit }) {
 
   /** Update form input. */
   function handleChange(evt) {
-    // let img;
+    let file;
 
-    // if(evt.target.files){
-    //   img = evt.target.files[0]
-    //   console.log("picture was added")
-    // }
+    if(evt.target.files){
+      file = evt.target.files[0]
+      console.log("files=", evt.target.files)
+      console.log("files[0]=", evt.target.files[0])
+
+      console.log("picture was added")
+    }
 
     const { name, value } = evt.target;
     setFormData((formData) => ({
       ...formData,
       [name]: value,
-      // "image_url": img
+      // "image_url": file
     }));
   }
 
@@ -51,16 +54,14 @@ function UserForm({ prompts, submit }) {
 
     console.log("in handleSubmit");
     console.log("data=", formData)
-
     submit(formData);
   }
 
   function renderInputType(name){
     if(name === "password") return `password`
-    if(name === "image_url") return `file`
+    if(name === "file") return `file`
     return `text`
   }
-
 
   return (
     <>
@@ -84,11 +85,5 @@ function UserForm({ prompts, submit }) {
     </>
   );
 }
-
-              // {p.name === "password" && type="password"}
-
-
-              // type={p.name === "password" ? "password" : "text"}
-
 
 export default UserForm;
