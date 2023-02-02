@@ -18,8 +18,12 @@ import axios from "axios";
  * { LoginPage, SignupPage } -> UserForm
  */
 
+
 function UserForm({ prompts, submit }) {
   let initialFormState = {};
+
+  const data = new FormData();
+
 
   for (let prompt of prompts) {
     initialFormState[prompt.name] = "";
@@ -30,16 +34,6 @@ function UserForm({ prompts, submit }) {
 
   /** Update form input. */
   function handleChange(evt) {
-    let file;
-
-    if(evt.target.files){
-      file = evt.target.files[0]
-      console.log("files=", evt.target.files)
-      console.log("files[0]=", evt.target.files[0])
-
-      console.log("picture was added")
-    }
-
     const { name, value } = evt.target;
     setFormData((formData) => ({
       ...formData,
@@ -48,40 +42,31 @@ function UserForm({ prompts, submit }) {
     }));
   }
 
-  console.log("image=", formData.image_url)
-
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const data = new FormData();
 
-    data.append("first_name", formData.first_name)
-    data.append("last_name", formData.last_name)
-    data.append("username", formData.username)
-    data.append("email", formData.email)
-    data.append("password", formData.password)
-    data.append("bio", formData.bio)
-    console.log("evt.target",evt.target)
-    console.log("evt.target.file", selectedFile);
+
+    for(let fieldName in formData){
+      console.log("field name=", fieldName, "field value=", formData[fieldName])
+      data.append(fieldName, formData[fieldName])
+    }
     data.append("file", selectedFile)
-    data.append("location", formData.location)
-    data.append("friend_radius", formData.friend_radius)
 
-    console.log("in handleSubmit");
-    console.log("data=", data);
+    console.log("FormData = ", data.values())
 
     try {
       const response = await axios({
         method: "post",
-        url: "http://127.0.0.1:5001/auth/register",
-        data: formData,
+        url: "http://127.0.0.1:5008/auth/register",
+        data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch(error) {
       console.log(error)
     }
-    // submit(data);
   }
+
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0])
