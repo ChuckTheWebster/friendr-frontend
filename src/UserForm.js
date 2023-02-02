@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import axios from "axios";
 // import "./UserForm.css";
 
 /** Form with customizable prompts and submit.
@@ -25,6 +26,7 @@ function UserForm({ prompts, submit }) {
   }
 
   const [formData, setFormData] = useState(initialFormState);
+  const [selectedFile, setSelectedFile] = React.useState(null);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -51,10 +53,38 @@ function UserForm({ prompts, submit }) {
   /** Call parent function and clear form. */
   async function handleSubmit(evt) {
     evt.preventDefault();
+    const data = new FormData();
+
+    data.append("first_name", formData.first_name)
+    data.append("last_name", formData.last_name)
+    data.append("username", formData.username)
+    data.append("email", formData.email)
+    data.append("password", formData.password)
+    data.append("bio", formData.bio)
+    console.log("evt.target",evt.target)
+    console.log("evt.target.file", selectedFile);
+    data.append("file", selectedFile)
+    data.append("location", formData.location)
+    data.append("friend_radius", formData.friend_radius)
 
     console.log("in handleSubmit");
-    console.log("data=", formData)
-    submit(formData);
+    console.log("data=", data);
+
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://127.0.0.1:5001/auth/register",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch(error) {
+      console.log(error)
+    }
+    // submit(data);
+  }
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
   }
 
   function renderInputType(name){
@@ -78,6 +108,15 @@ function UserForm({ prompts, submit }) {
             />
           </Form.Group>
         ))}
+        <Form.Group className="mb-3" key="image">
+          <Form.Label htmlFor="file">Image</Form.Label>
+          <Form.Control
+            id="file"
+            name="file"
+            onChange={handleFileSelect}
+            type="file"
+            />
+        </Form.Group>
         <Button variant="success" type="submit">
           Submit
         </Button>

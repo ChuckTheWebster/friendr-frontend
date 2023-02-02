@@ -35,10 +35,6 @@ function SignupPage({ signup }) {
       name: 'email'
     },
     {
-      label: 'Image',
-      name: 'file'
-    },
-    {
       label: 'Location',
       name: 'location'
     },

@@ -86,7 +86,7 @@ function App() {
 
 
     const tokenFromAPI = await FriendrApi.registerUser(signupFormData);
-    console.log("token=", tokenFromAPI)
+    console.log("token=", tokenFromAPI);
     // storeToken(tokenFromAPI);
   }
 
