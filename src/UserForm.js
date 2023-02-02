@@ -53,12 +53,13 @@ function UserForm({ prompts, submit }) {
     }
     data.append("file", selectedFile)
 
-    console.log("FormData = ", data.values())
+    // debugger;
+    // console.log("FormData = ", data.values())
 
     try {
       const response = await axios({
         method: "post",
-        url: "http://127.0.0.1:5008/auth/register",
+        url: "http://127.0.0.1:5000/auth/register",
         data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });
