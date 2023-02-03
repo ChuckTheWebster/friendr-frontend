@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
-const BASE_URL = "http://127.0.0.1:5001"
+const BASE_URL = "http://127.0.0.1:5000";
 // http://127.0.0.1:5000
 
 /** API Class.
@@ -23,7 +23,7 @@ class FriendrApi {
 
     const url = `${BASE_URL}/${endpoint}`;
 
-    console.log("URL=", url)
+    console.log("URL=", url);
     const headers = { Authorization: `Bearer ${FriendrApi.token}` };
     const params = (method === "get")
       ? data
@@ -49,18 +49,19 @@ class FriendrApi {
 
   /** Register user */
   static async registerUser(data) {
-    console.log("register user data=", data)
+    console.log("register user data=", data);
     const res = await this.request("auth/register", data, "post");
-    console.log("res=", res)
+    console.log("res=", res);
 
     return res.token;
   }
 
-    /** Get a user by username */
-    static async getUser(username) {
-      const response = await this.request(`users/${username}`);
-      return response.user;
-    }
+  /** Get a user by username */
+
+  static async getUser(username) {
+    const response = await this.request(`users/${username}`);
+    return response.user;
+  }
 
   /** Update user info */
 
@@ -69,12 +70,13 @@ class FriendrApi {
     return res.user;
   }
 
-
+  static async getUsersForMatcher() {
+    const response = await this.request(`/matcher`);
+    console.log("getUsersForMatcher", response)
+    return response.users;
+  }
 }
-// async function test() {
-//   const resp = await JoblyApi.registerUser({username: "sunce", firstName: "Sunce", password: "password", lastName: "Juravic", email: "sunce@cat.com"});
-//   console.log("resp=", resp);
-// }
-// test();
+
+
 
 export default FriendrApi;

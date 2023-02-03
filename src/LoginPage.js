@@ -1,5 +1,5 @@
 import React from 'react';
-import UserForm from './UserForm';
+import LoginForm from './LoginForm';
 import Card from 'react-bootstrap/Card';
 // import "./LoginPage.css";
 
@@ -29,7 +29,7 @@ function LoginPage({ login }) {
       <Card>
         <Card.Body>
           <Card.Title>Login</Card.Title>
-          <UserForm submit={login} prompts={prompts} />
+          <LoginForm submit={login} prompts={prompts} />
         </Card.Body>
       </Card>
     </div>

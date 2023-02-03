@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import HomePage from './HomePage';
+import HomePage from './HomePage';
 import LoginPage from './LoginPage';
+import MatcherList from './MatcherList';
 import SignupPage from './SignupPage';
 // import ProfilePage from './ProfilePage';
 
-// import userContext from './userContext';
+import userContext from './userContext';
 
 /** App Routes
  *
@@ -16,25 +17,27 @@ import SignupPage from './SignupPage';
  * App -> RoutesList
  */
 function RoutesList({ signup, login }) {
-  // const { user } = useContext(userContext);
+  const { user } = useContext(userContext);
+
+  console.log("user=", user)
 
   return (
     <Routes>
-      {/* <Route path="/" element={ <HomePage/> }/> */}
-      {/* { !user.isLoggedIn && */}
+      <Route path="/" element={ <HomePage/> }/>
+      { !user.isLoggedIn &&
         <>
           <Route path="/login" element={ <LoginPage login={ login }/> }/>
           <Route path="/signup" element={ <SignupPage signup={ signup }/> }/>
         </>
-      {/* } */}
+      }
 
-      {/* { user.isLoggedIn && */}
+      { user.isLoggedIn &&
         <>
-          {/* <Route path="/profile" element={ <ProfilePage/> }/> */}
+          <Route path="/matcher" element={ <MatcherList/> }/>
         </>
-      {/* } */}
+      }
 
-      {/* <Route path="*" element={ <Navigate to='/'/> }/> */}
+      <Route path="*" element={ <Navigate to='/'/> }/>
     </Routes>
   )
 }

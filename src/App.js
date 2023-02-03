@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import decode from "jwt-decode";
 import { Container } from "react-bootstrap";
 import userContext from "./userContext";
+import FriendrNav from "./FriendrNav";
 
 const DEFAULT_USER_STATE = {
   data: null,
@@ -131,13 +132,14 @@ function App() {
   //   }));
   // }
 
-  // if (user.hasLoaded === false) {
-  //   return <h2>Loading...</h2>
-  // }
+  if (user.hasLoaded === false) {
+    return <h2>Loading...</h2>
+  }
 
   return (
     <div className="App">
       <userContext.Provider value={{ user }}>
+        <FriendrNav/>
         <Container>
           <BrowserRouter>
             {/* <FriendlrNav logout={logout} /> */}
