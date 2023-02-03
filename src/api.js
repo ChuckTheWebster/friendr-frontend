@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
-const BASE_URL = "http://127.0.0.1:5000";
+const BASE_URL = "http://127.0.0.1:5001";
 // http://127.0.0.1:5000
 
 /** API Class.
@@ -71,11 +71,25 @@ class FriendrApi {
   }
 
   static async getUsersForMatcher() {
-    const response = await this.request(`/matcher`);
+    const response = await this.request(`matcher`);
     console.log("getUsersForMatcher", response)
     return response.users;
   }
+
+  static async updateLike(data) {
+    const response = await this.request('likes', data, "post");
+    return response
+  }
+
 }
+
+// async function handleSwipe(otherUsername, isLiked) {
+//   const response = await FriendrApi.updateLike({
+//     "user1": user.username,
+//     "user2": otherUsername,
+//     "like_status": isLiked
+//   });
+// }
 
 
 

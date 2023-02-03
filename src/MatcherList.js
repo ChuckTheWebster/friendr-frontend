@@ -1,15 +1,20 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import FriendrApi from './api';
 import ListGroup from 'react-bootstrap/ListGroup';
-import MatcherListCard from "./MatcherListCard"
+import MatcherListCard from "./MatcherListCard";
+//TODO: Context for user
+import userContext from "./userContext";
 
 
 export default function MatcherList() {
-  const [matchUser, setMatchUser] = useState({
+  const [matchUsers, setMatchUsers] = useState({
     isLoading: true,
     users: []
   });
+
+  const user = useContext(userContext);
+  console.log(user);
 
   useEffect(function fetchAndSetUsers() {
     async function fetchUsers() {
@@ -17,7 +22,7 @@ export default function MatcherList() {
 
       console.log("resp=", resp)
 
-      setMatchUser(({
+      setMatchUsers(({
         isLoading: false,
         users: resp
       }));
@@ -25,15 +30,22 @@ export default function MatcherList() {
     fetchUsers();
   }, []);
 
+  async function handleSwipe(otherUsername, isLiked) {
+    const response = await FriendrApi.updateLike({
+      "user1": user.user.data.username,
+      "user2": otherUsername,
+      "like_status": isLiked
+    });
+  }
+  //user1.username, user2.username, isLiked
 
-
-  if (matchUser.isLoading) return "loading...";
+  if (matchUsers.isLoading) return "loading...";
 
 
   return (
     <div>
       <ListGroup>
-        <MatcherListCard items={matchUser.users} />
+        <MatcherListCard items={matchUsers.users} handleSwipe={handleSwipe} />
       </ListGroup>
       {/* {matchUser.users.length === 0 && <h2>No users found.</h2>} */}
     </div>

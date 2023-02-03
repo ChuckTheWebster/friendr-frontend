@@ -3,7 +3,7 @@ import MatcherCard from './MatcherCard';
 
 // TODO: call items users
 
-export default function MatcherListCard({items}) {
+export default function MatcherListCard({items, handleSwipe}) {
   return (
     <>
       {items.map(u => (
@@ -14,6 +14,8 @@ export default function MatcherListCard({items}) {
           img={u.image}
           bio={u.bio}
           distance={99999999}
+          username={u.username}
+          handleSwipe={handleSwipe}
         />
       ))}
     </>
