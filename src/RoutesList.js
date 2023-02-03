@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import MatcherList from './MatcherList';
+import MatchesList from './MatchesList';
 import SignupPage from './SignupPage';
 // import ProfilePage from './ProfilePage';
 
@@ -33,7 +34,8 @@ function RoutesList({ signup, login }) {
 
       { user.isLoggedIn &&
         <>
-          <Route path="/matcher" element={ <MatcherList/> }/>
+          <Route path="/matcher/:username" element={ <MatcherList/> }/>
+          <Route path="/matches/:username" element={ <MatchesList/> }/>
         </>
       }
 

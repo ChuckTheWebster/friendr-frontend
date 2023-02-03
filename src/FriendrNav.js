@@ -17,10 +17,15 @@ import userContext from "./userContext";
 // TODO: logout
 
 function FriendrNav({ logout }) {
+
+  let currentUser;
+
   const { user } = useContext(userContext);
 
+  if (user.data) currentUser = user.data.username;
+
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="light" variant="light">
       <Container>
         <Navbar.Brand href="/">Friendr</Navbar.Brand>
         <Nav className="ms-auto">
@@ -33,13 +38,13 @@ function FriendrNav({ logout }) {
 
           {user.isLoggedIn && (
             <>
-              <Nav.Link href="/matcher">Find friends</Nav.Link>
-              <Nav.Link href="/matches">See matches</Nav.Link>
+              <Nav.Link href={`/matcher/${currentUser}`}>Find friends</Nav.Link>
+              <Nav.Link href={`/matches/${currentUser}`}>See matches</Nav.Link>
               <Button
                 className='logoutBtn'
                 onClick={logout}
                 variant="light"
-              >{`Logout: ${user.data.username}`}</Button>
+              >{`Logout`}</Button>
             </>
           )}
         </Nav>

@@ -8,17 +8,22 @@ import userContext from "./userContext";
 
 
 export default function MatcherList() {
+
   const [matchUsers, setMatchUsers] = useState({
     isLoading: true,
     users: []
   });
 
   const user = useContext(userContext);
-  console.log(user);
+
+  const current_user = user.user.data.username
+
+
+  console.log("MatchrList user=", current_user);
 
   useEffect(function fetchAndSetUsers() {
     async function fetchUsers() {
-      const resp = await FriendrApi.getUsersForMatcher();
+      const resp = await FriendrApi.getUsersForMatcher(current_user);
 
       console.log("resp=", resp)
 
@@ -31,9 +36,12 @@ export default function MatcherList() {
   }, []);
 
   async function handleSwipe(otherUsername, isLiked) {
+
+
+
     const response = await FriendrApi.updateLike({
-      "user1": user.user.data.username,
-      "user2": otherUsername,
+      "u1": current_user,
+      "u2": otherUsername,
       "like_status": isLiked
     });
   }
