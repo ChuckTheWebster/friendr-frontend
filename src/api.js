@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_FLASK_BACKEND_BASE_URL || "http://localhost:5001";
+export const BASE_URL = process.env.REACT_APP_FLASK_BACKEND_BASE_URL || "http://localhost:5001";
 
 /** API Class.
  *

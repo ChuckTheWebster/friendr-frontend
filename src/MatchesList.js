@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import MatchesCard from './MatchesCard';
 import userContext from './userContext';
+import { BASE_URL } from './api'
 
 export default function MatchesList() {
 
@@ -13,7 +14,7 @@ export default function MatchesList() {
   console.log("user", user);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/matches/${user.data.username}`)
+    fetch(`${BASE_URL}/matches/${user.data.username}`)
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);
