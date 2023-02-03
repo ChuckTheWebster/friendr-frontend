@@ -96,6 +96,16 @@ class FriendrApi {
     return response.user;
   }
 
+  /** Sends a message */
+
+  static async sendMessage(data) {
+    const username = data.username
+    const response = await this.request(`users/${username}/messages`, data, "post");
+    return response.message
+  }
+
+
+
 }
 
 

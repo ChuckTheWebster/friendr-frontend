@@ -4,6 +4,7 @@ import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import MatcherList from './MatcherList';
 import MatchesList from './MatchesList';
+import MessagesList from './MessagesList';
 import SignupPage from './SignupPage';
 // import ProfilePage from './ProfilePage';
 
@@ -38,6 +39,7 @@ function RoutesList({ signup, login }) {
         <>
           <Route path="/matcher/:username" element={ <MatcherList/> }/>
           <Route path="/matches/:username" element={ <MatchesList/> }/>
+          <Route path="/matches/:username/messages" element={ <MessagesList/> }/>
         </>
       }
 

@@ -13,7 +13,7 @@ export default function MatchesList() {
   console.log("user", user);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/matches/${user.data.username}`)
+    fetch(`http://localhost:5001/matches/${user.data.username}`)
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);
