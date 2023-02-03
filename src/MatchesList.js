@@ -34,6 +34,7 @@ export default function MatchesList() {
       <ListGroup>
         {matches.matches.map(match => <MatchesCard match={match} />)}
       </ListGroup>
+      {matches.matches.length === 0 && <h1>You haven't matched with anyone yet :S</h1>}
     </>
 
 
