@@ -1,14 +1,13 @@
 import React from 'react';
 import LoginForm from './LoginForm';
 import Card from 'react-bootstrap/Card';
-// import "./LoginPage.css";
 
 /** User login page
  *
  * Props:
  * - login
  *
- * RoutesList -> LoginPage -> UserForm
+ * RoutesList -> LoginPage -> LoginForm
  */
 
 function LoginPage({ login }) {
@@ -25,14 +24,12 @@ function LoginPage({ login }) {
   ];
 
   return (
-    <div>
-      <Card>
-        <Card.Body>
-          <Card.Title>Login</Card.Title>
-          <LoginForm submit={login} prompts={prompts} />
-        </Card.Body>
-      </Card>
-    </div>
+    <Card>
+      <Card.Body>
+        <Card.Title>Login</Card.Title>
+        <LoginForm submit={login} prompts={prompts} />
+      </Card.Body>
+    </Card>
   );
 }
 

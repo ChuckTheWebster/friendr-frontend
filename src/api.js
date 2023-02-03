@@ -85,7 +85,8 @@ class FriendrApi {
 
   static async updateLike(data) {
     const response = await this.request('likes', data, "post");
-    return response
+    console.log("response=", response);
+    return response.data;
   }
 
   /** Fetches matched users */

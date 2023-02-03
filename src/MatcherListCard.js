@@ -1,8 +1,6 @@
 import React from 'react'
 import MatcherCard from './MatcherCard';
 
-// TODO: call items users
-
 export default function MatcherListCard({items, handleSwipe}) {
   return (
     <>

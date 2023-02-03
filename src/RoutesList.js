@@ -24,7 +24,9 @@ function RoutesList({ signup, login }) {
 
   return (
     <Routes>
-      <Route path="/" element={ <HomePage/> }/>
+
+      <Route path="/" element={ user.isLoggedIn ? <MatcherList/> : <HomePage/> }/>
+
       { !user.isLoggedIn &&
         <>
           <Route path="/login" element={ <LoginPage login={ login }/> }/>

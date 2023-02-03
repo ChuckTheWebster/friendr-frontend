@@ -6,15 +6,13 @@ import Navbar from "react-bootstrap/Navbar";
 
 import userContext from "./userContext";
 
-/** Renders JoblyNav Bar Component
+/** Renders FriendrNav Bar Component
  *
  * Props:
  * - logout: Function to log user out
  *
- * App -> JoblyNav
+ * App -> FriendrNav
  */
-
-// TODO: logout
 
 function FriendrNav({ logout }) {
 

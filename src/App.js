@@ -1,5 +1,3 @@
-import "./App.css";
-// import FriendrNav from "./FriendrNav";
 import RoutesList from "./RoutesList";
 import { BrowserRouter } from "react-router-dom";
 import FriendrApi from "./api";
@@ -19,11 +17,8 @@ const DEFAULT_USER_STATE = {
 /** Friendr App
  *
  * State:
- * -user: Object containing information on current user and logged in state
- *    -data: User information { username, firstName, lastName, isAdmin, jobs }
- *        where jobs is { id, title, companyHandle, companyName, state }
- *    -isLoggedIn: Boolean for whether a user is logged in
- * -token: user token
+ * - user
+ * - token
  *
  * App -> { FriendrNav, RoutesList }
  */
@@ -137,7 +132,7 @@ function App() {
     <div className="App">
       <userContext.Provider value={{ user }}>
         <FriendrNav logout={logout} />
-        <Container>
+        <Container className="py-4">
           <BrowserRouter>
             <RoutesList signup={signup} login={login} />
           </BrowserRouter>

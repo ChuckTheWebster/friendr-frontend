@@ -2,44 +2,44 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-/** Form with customizable prompts and submit.
+/** Renders our login form
  *
  * State:
- * - formData: object of form input name: value pairs
- *    -messages: Array of string error messages to display
+ * - formData
  *
  * Props:
- * - prompts: an array of objects as prompts for inputs
- *            { label, name }
- * - submit:  function called upon submit
+ * - prompts
+ * - submit
  *
- * { LoginPage, SignupPage } -> UserForm
+ * { LoginPage } -> LoginForm
  */
 
 
-function UserForm({ prompts, submit }) {
+function LoginForm({ prompts, submit }) {
   let initialFormState = {};
 
-  for (let prompt of prompts) {
+  for (const prompt of prompts) {
     initialFormState[prompt.name] = "";
   }
 
   const [formData, setFormData] = useState(initialFormState);
 
   /** Update form input. */
+
   function handleChange(evt) {
     const { name, value } = evt.target;
+
     setFormData((formData) => ({
       ...formData,
       [name]: value,
-      // "image_url": file
     }));
+
   }
 
   /** Call parent function and clear form. */
+
   async function handleSubmit(evt) {
     evt.preventDefault();
-
     submit(formData);
     setFormData(initialFormState);
   }
@@ -67,4 +67,4 @@ function UserForm({ prompts, submit }) {
   );
 }
 
-export default UserForm;
+export default LoginForm;
