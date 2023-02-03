@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
-const BASE_URL = "http://127.0.0.1:5000";
-// http://127.0.0.1:5000
+const BASE_URL = process.env.REACT_APP_FLASK_BACKEND_BASE_URL || "http://localhost:5001";
 
 /** API Class.
  *
@@ -41,19 +39,24 @@ class FriendrApi {
   // Individual API routes
 
   /** Login user */
+
   static async loginUser(data) {
     const res = await this.request("auth/token", data, "post");
-    console.log(res);
     return res;
   }
 
   /** Register user */
-  static async registerUser(data) {
-    console.log("register user data=", data);
-    const res = await this.request("auth/register", data, "post");
-    console.log("res=", res);
 
-    return res.token;
+  static async registerUser(data) {
+
+    const response = await axios({
+      method: "post",
+      url: `${BASE_URL}/auth/register`,
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return response.data.token;
   }
 
   /** Get a user by username */
@@ -70,23 +73,27 @@ class FriendrApi {
     return res.user;
   }
 
-  static async getUsersForMatcher(username) {
+  /** Fetches potential friends */
+
+  static async findFriends(username) {
     const response = await this.request(`matcher/${username}`);
     console.log("getUsersForMatcher", response)
     return response.users;
   }
+
+  /** Updates a match status */
 
   static async updateLike(data) {
     const response = await this.request('likes', data, "post");
     return response
   }
 
+  /** Fetches matched users */
+
   static async getMatches(username) {
     const response = await this.request(`matches/${username}`);
     return response.user;
   }
-
-
 
 }
 

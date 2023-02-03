@@ -42,7 +42,7 @@ function FriendrNav({ logout }) {
               <Nav.Link href={`/matches/${currentUser}`}>See matches</Nav.Link>
               <Button
                 className='logoutBtn'
-                onClick={logout}
+                onClick={(logout)}
                 variant="light"
               >{`Logout`}</Button>
             </>

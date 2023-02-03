@@ -32,9 +32,11 @@ function App() {
   const [user, setUser] = useState(DEFAULT_USER_STATE);
   const [token, setToken] = useState();
 
-  // Attempt to login previous user from localstorage
+  /** Attempt to login previous user from localstorage */
+
   useEffect(function checkForTokenOnMount() {
     const tokenFromLocalStorage = localStorage.getItem("token");
+
     if (tokenFromLocalStorage) {
       storeToken(tokenFromLocalStorage);
     } else {
@@ -42,117 +44,108 @@ function App() {
     }
   }, []);
 
-// Update user state whenever token changes
-    useEffect(
-      function updateUserOnTokenChange() {
-        async function fetchAndSetUserInformation() {
-          // Token has not been explicitly checked for yet
-          if (token === undefined) return;
+  /** Update user state whenever token changes */
 
-          // There is no token
-          if (token === null) {
-            setUser({
-              data: null,
-              isLoggedIn: false,
-              hasLoaded: true
-            });
+  useEffect(
+    function updateUserOnTokenChange() {
+      async function fetchAndSetUserInformation() {
 
-            return;
-          }
+        if (token === undefined) return;
 
-          // There is a token
-          const { username } = decode(token);
-
-          let userFromAPI;
-          try {
-            userFromAPI = await FriendrApi.getUser(username);
-          } catch (err) {
-            console.error(err);
-          }
+        if (token === null) {
           setUser({
-            data: userFromAPI,
-            isLoggedIn: true,
+            data: null,
+            isLoggedIn: false,
             hasLoaded: true
           });
+
+          return;
         }
 
-        fetchAndSetUserInformation();
-      },
-      [token]
-    );
+        const { username } = decode(token);
 
-    // On token change, add/remove token to/from local storage.
-    useEffect(
-      function updateTokenInLocalStorage() {
-        if (token) {
-          localStorage.setItem("token", token);
-        } else if (token === null) {
-          localStorage.removeItem("token");
+        let userFromAPI;
+
+        try {
+          userFromAPI = await FriendrApi.getUser(username);
+        } catch (err) {
+          console.error(err);
         }
-      },
-      [token]
-    );
-    console.log({user});
 
+        setUser({
+          data: userFromAPI,
+          isLoggedIn: true,
+          hasLoaded: true
+        });
+      }
 
-  // // /** Register a user using the API and store the returned token */
+      fetchAndSetUserInformation();
+    },
+    [token]
+  );
+
+  /** On token change, add/remove token to/from local storage */
+
+  useEffect(
+    function updateTokenInLocalStorage() {
+      if (token) {
+        localStorage.setItem("token", token);
+      } else if (token === null) {
+        localStorage.removeItem("token");
+      }
+    },
+    [token]
+  );
+
+  /** Register a user using the API and store the returned token */
+
   async function signup(signupFormData) {
     const tokenFromAPI = await FriendrApi.registerUser(signupFormData);
-    console.log("token=", tokenFromAPI);
-    // storeToken(tokenFromAPI);
+    console.log("signup token", tokenFromAPI);
+    storeToken(tokenFromAPI);
   }
 
 
-  // // /** Authenticate a user using the API and store the returned token */
+  /** Authenticate a user using the API and store the returned token */
+
   async function login(loginFormData) {
     const tokenFromAPI = await FriendrApi.loginUser(loginFormData);
     console.log("login token", tokenFromAPI);
     storeToken(tokenFromAPI);
   }
 
-  // /** Stores a token in the JoblyApi class, state, and localStorage */
+  /** Stores a token in the FriendrApi class, state, and localStorage */
+
   function storeToken(newToken) {
     FriendrApi.token = newToken;
     setToken(newToken);
   }
 
-  /** Save user edits using the API and update user state */
-  // async function saveUserEdit(editFormData) {
-  //   const { username, ...updateData } = editFormData;
-  //   const userFromAPI = await JoblyApi.updateUser(username, updateData);
-  //   setUser((prevUser) => ({
-  //     isLoggedIn: true,
-  //     hasLoaded: true,
-  //     data: {
-  //       ...prevUser.data,
-  //       firstName: userFromAPI.firstName,
-  //       lastName: userFromAPI.lastName,
-  //       email: userFromAPI.email,
-  //     },
-  //   }));
-  // }
+  /** Logout the user */
+
+  function logout() {
+    FriendrApi.token = null;
+    setToken(null);
+  }
+
 
   if (user.hasLoaded === false) {
-    return <h2>Loading...</h2>
+    return <h2>Loading...</h2>;
   }
 
   return (
     <div className="App">
       <userContext.Provider value={{ user }}>
-        <FriendrNav/>
+        <FriendrNav logout={logout} />
         <Container>
           <BrowserRouter>
-            {/* <FriendlrNav logout={logout} /> */}
-            <RoutesList  signup={signup} login={login} />
+            <RoutesList signup={signup} login={login} />
           </BrowserRouter>
         </Container>
       </userContext.Provider>
     </div>
   );
 }
-
-// signup={signup}
-// login={login}
 
 export default App;
 

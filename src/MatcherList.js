@@ -23,7 +23,7 @@ export default function MatcherList() {
 
   useEffect(function fetchAndSetUsers() {
     async function fetchUsers() {
-      const resp = await FriendrApi.getUsersForMatcher(current_user);
+      const resp = await FriendrApi.findFriends(current_user);
 
       console.log("resp=", resp)
 

@@ -1,24 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
-
-/** Form with customizable prompts and submit.
- *
- * State:
- * - formData: object of form input name: value pairs
- *    -messages: Array of string error messages to display
- *
- * Props:
- * - prompts: an array of objects as prompts for inputs
- *            { label, name }
- * - submit:  function called upon submit
- *
- * { LoginPage, SignupPage } -> UserForm
- */
 
 
 function UserForm({ prompts, submit }) {
+
+  const navigate = useNavigate();
+
   let initialFormState = {};
 
   const data = new FormData();
@@ -35,30 +24,27 @@ function UserForm({ prompts, submit }) {
 
   function handleChange(evt) {
     const { name, value } = evt.target;
+
     setFormData((formData) => ({
       ...formData,
       [name]: value,
-      // "image_url": file
     }));
+
   }
 
   /** Call parent function and clear form. */
+
   async function handleSubmit(evt) {
     evt.preventDefault();
 
-    // TODO: Move to Api.js
     for(let fieldName in formData){
       data.append(fieldName, formData[fieldName])
     }
     data.append("file", selectedFile)
 
     try {
-      const response = await axios({
-        method: "post",
-        url: "http://127.0.0.1:5000/auth/register",
-        data: data,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      submit(data)
+      navigate("/")
     } catch(error) {
       console.log(error)
     }
