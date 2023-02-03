@@ -104,6 +104,12 @@ class FriendrApi {
     return response.message
   }
 
+  static async getMessages(user_from, user_to) {
+    const response = await this.request(`messages/${user_from}/${user_to}`);
+    console.log("getMessages", response)
+    return response.messages
+  }
+
 
 
 }

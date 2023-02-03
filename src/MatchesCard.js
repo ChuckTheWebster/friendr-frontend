@@ -1,10 +1,16 @@
 import React from 'react';
 import { Button, ListGroupItem } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function MatchesCard({ match }) {
 
+  const navigate = useNavigate();
+
+  // other user
+  const { username } = useParams()
+
   function handleClick() {
-    
+    navigate(`/matches/${match.username}/messages`);
   }
 
   return (
